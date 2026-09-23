@@ -135,4 +135,119 @@ class SeamlessVerificationMethodTests: XCTestCase {
         XCTAssertTrue(headers.isEmpty)
     }
 
+    func testSeamlessMethodBuilder() {
+        let method = SeamlessVerificationMethod.Builder.instance()
+            .config(SeamlessVerificationConfig(globalConfig: SinchGlobalConfig.mockedManagerInstance(), number: "+48123456789"))
+            .build()
+        XCTAssertTrue(method is SeamlessVerificationMethod)
+    }
+
+    func testOnSuccessWithSuccessfulBodyNotifiesVerified() {
+        let helper = SeamlessOutcomeHelper()
+        let verified = expectation(description: "verified")
+        helper.onVerifiedCallback = { verified.fulfill() }
+        let method = createMethod(withHelperAsListener: helper)
+
+        method.onSuccess(data: "HTTP/1.1 200 OK\n\nSUCCESSFUL")
+        waitForExpectations(timeout: 0.5)
+    }
+
+    func testOnSuccess200WithoutSuccessfulKeyFails() {
+        let helper = SeamlessOutcomeHelper()
+        let failed = expectation(description: "failed missing key")
+        helper.onFailedCallback = { error in
+            if case SDKError.unexpected(let message) = error {
+                XCTAssertTrue(message.contains("200"))
+            } else {
+                XCTFail("Unexpected error \(error)")
+            }
+            failed.fulfill()
+        }
+        let method = createMethod(withHelperAsListener: helper)
+
+        method.onSuccess(data: "HTTP/1.1 200 OK\n\nOK")
+        waitForExpectations(timeout: 0.5)
+    }
+
+    func testOnSuccess400FailsWithApiCall() {
+        let helper = SeamlessOutcomeHelper()
+        let failed = expectation(description: "failed 400")
+        helper.onFailedCallback = { error in
+            if case SDKError.apiCall = error {
+                failed.fulfill()
+            } else {
+                XCTFail("Expected apiCall error")
+            }
+        }
+        let method = createMethod(withHelperAsListener: helper)
+
+        method.onSuccess(data: "HTTP/1.1 400 Bad Request\n\n")
+        waitForExpectations(timeout: 0.5)
+    }
+
+    func testOnSuccessOtherStatusFailsUnexpected() {
+        let helper = SeamlessOutcomeHelper()
+        let failed = expectation(description: "failed other")
+        helper.onFailedCallback = { error in
+            if case SDKError.unexpected = error {
+                failed.fulfill()
+            } else {
+                XCTFail("Expected unexpected error")
+            }
+        }
+        let method = createMethod(withHelperAsListener: helper)
+
+        method.onSuccess(data: "HTTP/1.1 500 Internal Server Error\n\n")
+        waitForExpectations(timeout: 0.5)
+    }
+
+    func testOnSuccessUnparseableCodeFails() {
+        let helper = SeamlessOutcomeHelper()
+        let failed = expectation(description: "failed parse")
+        helper.onFailedCallback = { error in
+            if case SDKError.unexpected(let message) = error {
+                XCTAssertTrue(message.contains("could not been parsed"))
+            } else {
+                XCTFail("Unexpected error \(error)")
+            }
+            failed.fulfill()
+        }
+        let method = createMethod(withHelperAsListener: helper)
+
+        method.onSuccess(data: "NOCODE\nLocation: /x\n")
+        waitForExpectations(timeout: 0.5)
+    }
+
+    func testOnErrorForwardsToListener() {
+        let helper = SeamlessOutcomeHelper()
+        let failed = expectation(description: "onError")
+        helper.onFailedCallback = { error in
+            XCTAssertEqual((error as NSError).domain, "test")
+            failed.fulfill()
+        }
+        let method = createMethod(withHelperAsListener: helper)
+
+        method.onError(error: NSError(domain: "test", code: 1))
+        waitForExpectations(timeout: 0.5)
+    }
+
+    private func createMethod(withHelperAsListener helper: SeamlessOutcomeHelper) -> SeamlessVerificationMethod {
+        return SeamlessVerificationMethod(
+            verificationMethodConfig: SeamlessVerificationConfig(globalConfig: SinchGlobalConfig.mockedManagerInstance(), number: ""),
+            initiationListener: helper,
+            verificationListener: helper
+        )
+    }
+
 }
+
+private final class SeamlessOutcomeHelper: InitiationListener, VerificationListener {
+    var onVerifiedCallback: (() -> Void)?
+    var onFailedCallback: ((Error) -> Void)?
+
+    func onInitiated(_ data: InitiationResponseData) {}
+    func onInitiationFailed(e: Error) {}
+    func onVerified() { onVerifiedCallback?() }
+    func onVerificationFailed(e: Error) { onFailedCallback?(e) }
+}
+

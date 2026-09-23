@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4D3016378314ADDA9DD16DF /* VerificationMethodsBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00753378BA0A4A719561FC78 /* VerificationMethodsBuilderTests.swift */; };
+		6B78EC131E90494691E356AE /* FlashcallVerificationConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BECD059594F4601951240A0 /* FlashcallVerificationConfigTests.swift */; };
+		E19E6781D250485A94D0904C /* CalloutVerificationConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69121E3BD5B74F22A57F01C8 /* CalloutVerificationConfigTests.swift */; };
+		AE12019292294078B61CCD35 /* SeamlessVerificationConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD05D25190BA42D9AF2D6598 /* SeamlessVerificationConfigTests.swift */; };
+		D5068C7E90EF400A8D1CD25F /* HttpRawResponseHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5994671C60C74A27837CE2CF /* HttpRawResponseHandlerTests.swift */; };
+		F2060A46BF8B4DA59220C541 /* AutoVerificationConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D880B4D896E48CAA2C26603 /* AutoVerificationConfigTests.swift */; };
+		B5DF19177FA4444D93BF3E08 /* AutoVerificationRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171ADBB769043C3B24772DA /* AutoVerificationRouterTests.swift */; };
+		8AA1324291E84225AC7E3BDE /* AutoVerificationMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674F5FC7B4EC417AB3B54E70 /* AutoVerificationMethodTests.swift */; };
+		D4AB3DC5403146BEA7CB43EE /* VerificationRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27C6245B5A49DDBBAE6C7B /* VerificationRouterTests.swift */; };
+		E26F1B290CC249D88F5E7EED /* SDKErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB45A57C7F4A6487FEFCC7 /* SDKErrorTests.swift */; };
+		2D7B5323BCD64CA5AABC98AB /* ApiErrorDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA49648358F4D52981B6F86 /* ApiErrorDataTests.swift */; };
+		C656D38D566D4F1A8A311B47 /* VerificationInitDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327437076EF8471DBA07CAEA /* VerificationInitDataTests.swift */; };
+		98CE8B7C935A4A7D874BCB6A /* VerificationDataTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C090D37023F24A33BD2EA8E7 /* VerificationDataTypesTests.swift */; };
+		3EBE0D59F2ED45CEBC767080 /* VerificationMethodBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4358B3C3AE749C5AD06603E /* VerificationMethodBuilderTests.swift */; };
 		1D925759BC10BA4E754F0CE6 /* Pods_Verification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BC95CAA38FB91215C425F8 /* Pods_Verification.framework */; };
 		46BC720D1E7F9270BAFAD983 /* Pods_Verification_VerificationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 522340C046E2AB95BDA9196B /* Pods_Verification_VerificationTests.framework */; };
 		880343652AEBB17C004381CB /* sslfuncs.c in Sources */ = {isa = PBXBuildFile; fileRef = 8803435F2AEBB17B004381CB /* sslfuncs.c */; };
@@ -166,6 +180,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00753378BA0A4A719561FC78 /* VerificationMethodsBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationMethodsBuilderTests.swift; sourceTree = "<group>"; };
+		4BECD059594F4601951240A0 /* FlashcallVerificationConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcallVerificationConfigTests.swift; sourceTree = "<group>"; };
+		69121E3BD5B74F22A57F01C8 /* CalloutVerificationConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutVerificationConfigTests.swift; sourceTree = "<group>"; };
+		DD05D25190BA42D9AF2D6598 /* SeamlessVerificationConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamlessVerificationConfigTests.swift; sourceTree = "<group>"; };
+		5994671C60C74A27837CE2CF /* HttpRawResponseHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRawResponseHandlerTests.swift; sourceTree = "<group>"; };
+		2D880B4D896E48CAA2C26603 /* AutoVerificationConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoVerificationConfigTests.swift; sourceTree = "<group>"; };
+		E171ADBB769043C3B24772DA /* AutoVerificationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoVerificationRouterTests.swift; sourceTree = "<group>"; };
+		674F5FC7B4EC417AB3B54E70 /* AutoVerificationMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoVerificationMethodTests.swift; sourceTree = "<group>"; };
+		CE27C6245B5A49DDBBAE6C7B /* VerificationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationRouterTests.swift; sourceTree = "<group>"; };
+		C9BB45A57C7F4A6487FEFCC7 /* SDKErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKErrorTests.swift; sourceTree = "<group>"; };
+		3FA49648358F4D52981B6F86 /* ApiErrorDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorDataTests.swift; sourceTree = "<group>"; };
+		327437076EF8471DBA07CAEA /* VerificationInitDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationInitDataTests.swift; sourceTree = "<group>"; };
+		C090D37023F24A33BD2EA8E7 /* VerificationDataTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationDataTypesTests.swift; sourceTree = "<group>"; };
+		F4358B3C3AE749C5AD06603E /* VerificationMethodBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationMethodBuilderTests.swift; sourceTree = "<group>"; };
 		30BC95CAA38FB91215C425F8 /* Pods_Verification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Verification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		522340C046E2AB95BDA9196B /* Pods_Verification_VerificationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Verification_VerificationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		708378DAF96DEE26452BFC2A /* Pods-Verification-VerificationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Verification-VerificationTests.debug.xcconfig"; path = "Target Support Files/Pods-Verification-VerificationTests/Pods-Verification-VerificationTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -376,9 +404,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		234E34EA8EE34311A15F74F9 /* Auto */ = {
+			isa = PBXGroup;
+			children = (
+				2D880B4D896E48CAA2C26603 /* AutoVerificationConfigTests.swift */,
+				E171ADBB769043C3B24772DA /* AutoVerificationRouterTests.swift */,
+				674F5FC7B4EC417AB3B54E70 /* AutoVerificationMethodTests.swift */,
+			);
+			path = Auto;
+			sourceTree = "<group>";
+		};
 		B1578A99250636D600E2068D /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				00753378BA0A4A719561FC78 /* VerificationMethodsBuilderTests.swift */,
 				B1578A9A2506372300E2068D /* SinchPhoneNumberUtilsTests.swift */,
 			);
 			path = Helper;
@@ -404,6 +443,11 @@
 		B197B94024E16E3000889BD0 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C090D37023F24A33BD2EA8E7 /* VerificationDataTypesTests.swift */,
+				327437076EF8471DBA07CAEA /* VerificationInitDataTests.swift */,
+				3FA49648358F4D52981B6F86 /* ApiErrorDataTests.swift */,
+				C9BB45A57C7F4A6487FEFCC7 /* SDKErrorTests.swift */,
+				CE27C6245B5A49DDBBAE6C7B /* VerificationRouterTests.swift */,
 				B1D698A624E5056300AC4CA8 /* Method */,
 				B197B94224E16E3000889BD0 /* VerificationLanguage */,
 				B197B94524E16E3000889BD0 /* AppKeyAuthorizationMethodTests.swift */,
@@ -473,6 +517,7 @@
 		B1D698A624E5056300AC4CA8 /* Method */ = {
 			isa = PBXGroup;
 			children = (
+				F4358B3C3AE749C5AD06603E /* VerificationMethodBuilderTests.swift */,
 				B1D698A224E3DFA500AC4CA8 /* VerificationMethodTests.swift */,
 				B1D698A424E3E5AD00AC4CA8 /* MockedVerificationMethod.swift */,
 			);
@@ -482,6 +527,8 @@
 		B1D698AB24E694BB00AC4CA8 /* Seamless */ = {
 			isa = PBXGroup;
 			children = (
+				5994671C60C74A27837CE2CF /* HttpRawResponseHandlerTests.swift */,
+				DD05D25190BA42D9AF2D6598 /* SeamlessVerificationConfigTests.swift */,
 				B1D698AC24E694D600AC4CA8 /* SeamlessVerificationMethodTests.swift */,
 			);
 			path = Seamless;
@@ -490,6 +537,7 @@
 		B1D698B024E6B21500AC4CA8 /* Flashcall */ = {
 			isa = PBXGroup;
 			children = (
+				4BECD059594F4601951240A0 /* FlashcallVerificationConfigTests.swift */,
 				B1D698B224E6B24700AC4CA8 /* FlashcallVerificationMethodTests.swift */,
 			);
 			path = Flashcall;
@@ -498,6 +546,7 @@
 		B1D698B124E6B22400AC4CA8 /* Callout */ = {
 			isa = PBXGroup;
 			children = (
+				69121E3BD5B74F22A57F01C8 /* CalloutVerificationConfigTests.swift */,
 				B1D698B424E6B37500AC4CA8 /* CalloutVerificationMethodTests.swift */,
 			);
 			path = Callout;
@@ -536,6 +585,7 @@
 		B1E8419B24E1527900C29730 /* VerificationTests */ = {
 			isa = PBXGroup;
 			children = (
+				234E34EA8EE34311A15F74F9 /* Auto */,
 				B1D698A924E518D400AC4CA8 /* MockedManagerGlobalConfig.swift */,
 				B1578A99250636D600E2068D /* Helper */,
 				B197B94024E16E3000889BD0 /* Core */,
@@ -1330,6 +1380,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4D3016378314ADDA9DD16DF /* VerificationMethodsBuilderTests.swift in Sources */,
+				6B78EC131E90494691E356AE /* FlashcallVerificationConfigTests.swift in Sources */,
+				E19E6781D250485A94D0904C /* CalloutVerificationConfigTests.swift in Sources */,
+				AE12019292294078B61CCD35 /* SeamlessVerificationConfigTests.swift in Sources */,
+				D5068C7E90EF400A8D1CD25F /* HttpRawResponseHandlerTests.swift in Sources */,
+				F2060A46BF8B4DA59220C541 /* AutoVerificationConfigTests.swift in Sources */,
+				B5DF19177FA4444D93BF3E08 /* AutoVerificationRouterTests.swift in Sources */,
+				8AA1324291E84225AC7E3BDE /* AutoVerificationMethodTests.swift in Sources */,
+				D4AB3DC5403146BEA7CB43EE /* VerificationRouterTests.swift in Sources */,
+				E26F1B290CC249D88F5E7EED /* SDKErrorTests.swift in Sources */,
+				2D7B5323BCD64CA5AABC98AB /* ApiErrorDataTests.swift in Sources */,
+				C656D38D566D4F1A8A311B47 /* VerificationInitDataTests.swift in Sources */,
+				98CE8B7C935A4A7D874BCB6A /* VerificationDataTypesTests.swift in Sources */,
+				3EBE0D59F2ED45CEBC767080 /* VerificationMethodBuilderTests.swift in Sources */,
 				B1D698A524E3E5AD00AC4CA8 /* MockedVerificationMethod.swift in Sources */,
 				B176107B2510AD97000C5EC1 /* ResponseHeadersExtensionTests.swift in Sources */,
 				B197B94C24E16E3100889BD0 /* AppKeyAuthorizationMethodTests.swift in Sources */,
