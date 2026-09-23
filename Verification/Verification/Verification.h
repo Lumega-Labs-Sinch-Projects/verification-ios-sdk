@@ -15,6 +15,8 @@ FOUNDATION_EXPORT double VerificationVersionNumber;
 FOUNDATION_EXPORT const unsigned char VerificationVersionString[];
 
 #import <Verification/HTTPRequester.h>
+#import <Verification/SocketAddress.h>
+#import <Verification/sslfuncs.h>
 
 // In this header, you should import all the public headers of your framework using statements like #import <Verification/PublicHeader.h>
 

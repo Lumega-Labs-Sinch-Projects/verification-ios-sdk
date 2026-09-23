@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A01E3579E19B42609E1F5257 /* PhoneNumberUITextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240430A44554CB69A075F0C /* PhoneNumberUITextFieldTests.swift */; };
+		2619DFFB8C63438BA2F6BE8A /* ExtensionAndModelCoverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681EE038C3747A395665B8D /* ExtensionAndModelCoverageTests.swift */; };
+		2390873B4FFE40FCA92FBBB8 /* NetworkingLogicCoverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1432E03ACA9C46E4BD4E28ED /* NetworkingLogicCoverageTests.swift */; };
 		E4D3016378314ADDA9DD16DF /* VerificationMethodsBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00753378BA0A4A719561FC78 /* VerificationMethodsBuilderTests.swift */; };
 		6B78EC131E90494691E356AE /* FlashcallVerificationConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BECD059594F4601951240A0 /* FlashcallVerificationConfigTests.swift */; };
 		E19E6781D250485A94D0904C /* CalloutVerificationConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69121E3BD5B74F22A57F01C8 /* CalloutVerificationConfigTests.swift */; };
@@ -24,8 +27,8 @@
 		1D925759BC10BA4E754F0CE6 /* Pods_Verification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BC95CAA38FB91215C425F8 /* Pods_Verification.framework */; };
 		46BC720D1E7F9270BAFAD983 /* Pods_Verification_VerificationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 522340C046E2AB95BDA9196B /* Pods_Verification_VerificationTests.framework */; };
 		880343652AEBB17C004381CB /* sslfuncs.c in Sources */ = {isa = PBXBuildFile; fileRef = 8803435F2AEBB17B004381CB /* sslfuncs.c */; };
-		880343662AEBB17C004381CB /* SocketAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 880343602AEBB17C004381CB /* SocketAddress.h */; };
-		880343672AEBB17C004381CB /* sslfuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = 880343612AEBB17C004381CB /* sslfuncs.h */; };
+		880343662AEBB17C004381CB /* SocketAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 880343602AEBB17C004381CB /* SocketAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		880343672AEBB17C004381CB /* sslfuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = 880343612AEBB17C004381CB /* sslfuncs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		880343682AEBB17C004381CB /* HTTPRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = 880343622AEBB17C004381CB /* HTTPRequester.m */; };
 		880343692AEBB17C004381CB /* HTTPRequester.h in Headers */ = {isa = PBXBuildFile; fileRef = 880343632AEBB17C004381CB /* HTTPRequester.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8803436A2AEBB17C004381CB /* SocketAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 880343642AEBB17C004381CB /* SocketAddress.m */; };
@@ -180,6 +183,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E240430A44554CB69A075F0C /* PhoneNumberUITextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberUITextFieldTests.swift; sourceTree = "<group>"; };
+		F681EE038C3747A395665B8D /* ExtensionAndModelCoverageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAndModelCoverageTests.swift; sourceTree = "<group>"; };
+		1432E03ACA9C46E4BD4E28ED /* NetworkingLogicCoverageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingLogicCoverageTests.swift; sourceTree = "<group>"; };
 		00753378BA0A4A719561FC78 /* VerificationMethodsBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationMethodsBuilderTests.swift; sourceTree = "<group>"; };
 		4BECD059594F4601951240A0 /* FlashcallVerificationConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcallVerificationConfigTests.swift; sourceTree = "<group>"; };
 		69121E3BD5B74F22A57F01C8 /* CalloutVerificationConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutVerificationConfigTests.swift; sourceTree = "<group>"; };
@@ -417,6 +423,7 @@
 		B1578A99250636D600E2068D /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				E240430A44554CB69A075F0C /* PhoneNumberUITextFieldTests.swift */,
 				00753378BA0A4A719561FC78 /* VerificationMethodsBuilderTests.swift */,
 				B1578A9A2506372300E2068D /* SinchPhoneNumberUtilsTests.swift */,
 			);
@@ -443,6 +450,8 @@
 		B197B94024E16E3000889BD0 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				1432E03ACA9C46E4BD4E28ED /* NetworkingLogicCoverageTests.swift */,
+				F681EE038C3747A395665B8D /* ExtensionAndModelCoverageTests.swift */,
 				C090D37023F24A33BD2EA8E7 /* VerificationDataTypesTests.swift */,
 				327437076EF8471DBA07CAEA /* VerificationInitDataTests.swift */,
 				3FA49648358F4D52981B6F86 /* ApiErrorDataTests.swift */,
@@ -1380,6 +1389,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01E3579E19B42609E1F5257 /* PhoneNumberUITextFieldTests.swift in Sources */,
+				2619DFFB8C63438BA2F6BE8A /* ExtensionAndModelCoverageTests.swift in Sources */,
+				2390873B4FFE40FCA92FBBB8 /* NetworkingLogicCoverageTests.swift in Sources */,
 				E4D3016378314ADDA9DD16DF /* VerificationMethodsBuilderTests.swift in Sources */,
 				6B78EC131E90494691E356AE /* FlashcallVerificationConfigTests.swift in Sources */,
 				E19E6781D250485A94D0904C /* CalloutVerificationConfigTests.swift in Sources */,
