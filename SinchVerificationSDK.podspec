@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
   spec.social_media_url   = "https://twitter.com/wearesinch"
 
   spec.platform     = :ios
-  spec.ios.deployment_target = "13.4"
+  spec.ios.deployment_target = "15.0"
   spec.swift_version = '5.0'
 
   spec.source       = { :git => "https://github.com/sinch/verification-ios-sdk.git", :tag => "#{spec.version}" }
