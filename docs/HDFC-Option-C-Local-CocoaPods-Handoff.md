@@ -73,7 +73,7 @@ Optional but recommended — set a clear drop version in the copied podspec so H
 Edit `../${EXPORT_DIR}/SinchVerificationSDK.podspec`:
 
 ```ruby
-spec.version = "3.3.1"   # matches SinchVerificationSDK.podspec for this drop
+spec.version = "3.3.2"   # matches SinchVerificationSDK.podspec for this drop
 ```
 
 Leave `spec.source_files` as:
@@ -210,7 +210,7 @@ New drops = new zip/folder. Replace `Vendor/SinchVerificationSDK` and run `pod i
 | Item | Value |
 |---|---|
 | Fix branch | `fix/httprequester-release-buffer` |
-| SDK version | `3.3.1` |
+| SDK version | `3.3.2` |
 | iOS deployment target | `15.0` |
 | Fix commit (example) | `cb5baa0` — Fix seamless Release failure decoding cellular HTTP responses |
 | Symptom fixed | Release + iOS 27 seamless → `Error when executing HTTP requests` |

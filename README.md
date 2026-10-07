@@ -29,7 +29,7 @@ Add SinchVerificationSDK as depenency either with xCode UI or by defining it in 
 
 ```
  dependencies: [
-    .package(url: "https://github.com/sinch/verification-ios-sdk.git", .upToNextMajor(from: "3.3.1"))
+    .package(url: "https://github.com/sinch/verification-ios-sdk.git", .upToNextMajor(from: "3.3.2"))
 ]
 ```
 
