@@ -315,14 +315,7 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
     // Only decode the bytes actually received. Using sizeof(buffer) includes
     // uninitialized stack memory and can make NSASCIIStringEncoding return nil
     // in Release builds (Debug often has zeroed stacks, so it appears to work).
-    if (responseLength == 0) {
-        return ERROR_RESULT;
-    }
-    NSString *response = [[NSString alloc] initWithBytes:buffer length:responseLength encoding:NSASCIIStringEncoding];
-    if (response == nil) {
-        // Fallback for non-ASCII body bytes while keeping header parsing usable.
-        response = [[NSString alloc] initWithBytes:buffer length:responseLength encoding:NSISOLatin1StringEncoding];
-    }
+    NSString *response = [self stringFromResponseBuffer:buffer length:responseLength];
     
     // Step 5). Parse the HTTP response and check whether it contains a redirect HTTP code
     if (response == nil || [response rangeOfString: HTTP_RESPONSE_START].location == NSNotFound) {
@@ -354,6 +347,25 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
     }
 
     return response;
+}
+
++ (NSString *)stringFromResponseBuffer:(const void *)buffer length:(NSUInteger)length {
+    if (buffer == NULL || length == 0) {
+        return nil;
+    }
+    NSString *response = [self asciiStringFromResponseBuffer:buffer length:length];
+    if (response == nil) {
+        // Fallback for non-ASCII body bytes while keeping header parsing usable.
+        response = [[NSString alloc] initWithBytes:buffer length:length encoding:NSISOLatin1StringEncoding];
+    }
+    return response;
+}
+
++ (NSString *)asciiStringFromResponseBuffer:(const void *)buffer length:(NSUInteger)length {
+    if (buffer == NULL || length == 0) {
+        return nil;
+    }
+    return [[NSString alloc] initWithBytes:buffer length:length encoding:NSASCIIStringEncoding];
 }
 
 @end

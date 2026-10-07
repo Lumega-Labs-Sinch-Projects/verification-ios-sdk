@@ -23,6 +23,7 @@
 		B1761075250F6158000C5EC1 /* FlashcallInitiationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1761074250F6158000C5EC1 /* FlashcallInitiationDetails.swift */; };
 		B17610792510A843000C5EC1 /* ResponseHeadersExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17610782510A843000C5EC1 /* ResponseHeadersExtensions.swift */; };
 		B176107B2510AD97000C5EC1 /* ResponseHeadersExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B176107A2510AD97000C5EC1 /* ResponseHeadersExtensionTests.swift */; };
+		A1B2C3D42510AD98000C5EC1 /* HTTPRequesterResponseDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D32510AD98000C5EC1 /* HTTPRequesterResponseDecodingTests.swift */; };
 		B176107D2510B84F000C5EC1 /* InitiationResponseDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B176107C2510B84F000C5EC1 /* InitiationResponseDataTests.swift */; };
 		B194B128257F7F48002018BC /* AutoVerificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194B127257F7F48002018BC /* AutoVerificationRouter.swift */; };
 		B194B12C257F8799002018BC /* InitiationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194B12B257F8799002018BC /* InitiationDetails.swift */; };
@@ -185,6 +186,7 @@
 		B1761074250F6158000C5EC1 /* FlashcallInitiationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcallInitiationDetails.swift; sourceTree = "<group>"; };
 		B17610782510A843000C5EC1 /* ResponseHeadersExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHeadersExtensions.swift; sourceTree = "<group>"; };
 		B176107A2510AD97000C5EC1 /* ResponseHeadersExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHeadersExtensionTests.swift; sourceTree = "<group>"; };
+		A1B2C3D32510AD98000C5EC1 /* HTTPRequesterResponseDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequesterResponseDecodingTests.swift; sourceTree = "<group>"; };
 		B176107C2510B84F000C5EC1 /* InitiationResponseDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiationResponseDataTests.swift; sourceTree = "<group>"; };
 		B194B127257F7F48002018BC /* AutoVerificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoVerificationRouter.swift; sourceTree = "<group>"; };
 		B194B12B257F8799002018BC /* InitiationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiationDetails.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				74D206F8A510420D9EA4F0F9 /* BasicAuthorizationMethodTests.swift */,
 				B197B94124E16E3000889BD0 /* VerificationStatesTests.swift */,
 				B176107A2510AD97000C5EC1 /* ResponseHeadersExtensionTests.swift */,
+				A1B2C3D32510AD98000C5EC1 /* HTTPRequesterResponseDecodingTests.swift */,
 				B176107C2510B84F000C5EC1 /* InitiationResponseDataTests.swift */,
 			);
 			path = Core;
@@ -1332,6 +1335,7 @@
 			files = (
 				B1D698A524E3E5AD00AC4CA8 /* MockedVerificationMethod.swift in Sources */,
 				B176107B2510AD97000C5EC1 /* ResponseHeadersExtensionTests.swift in Sources */,
+				A1B2C3D42510AD98000C5EC1 /* HTTPRequesterResponseDecodingTests.swift in Sources */,
 				B197B94C24E16E3100889BD0 /* AppKeyAuthorizationMethodTests.swift in Sources */,
 				B7FBBE38F38F4F59924B4B96 /* BasicAuthorizationMethodTests.swift in Sources */,
 				B176107D2510B84F000C5EC1 /* InitiationResponseDataTests.swift in Sources */,
