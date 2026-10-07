@@ -13,6 +13,7 @@
 #import <net/if.h>
 #import <netdb.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 @implementation HTTPRequester
 
@@ -41,6 +42,10 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
  @return A string response from the request to the URL
  */
 + (NSString *)performGetRequest:(NSURL *)url {
+    return [self performGetRequest:url headers:nil];
+}
+
++ (NSString *)performGetRequest:(NSURL *)url headers:(NSDictionary<NSString *, NSString *> *)headers {
     // Stores any errors that occur during execution
     OSStatus status;
     
@@ -140,6 +145,7 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
     } else {
         // No route found, abort
         freeaddrinfo(addrinfoPointer);
+        freeifaddrs(ifaddrPointer);
         return ERROR_RESULT;
     }
     
@@ -148,27 +154,47 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
     // Instantiate a new socket
     int sock = socket(localAddress.sockaddr->sa_family, SOCK_STREAM, 0);
     if(sock == -1) {
+        freeaddrinfo(addrinfoPointer);
+        freeifaddrs(ifaddrPointer);
         return ERROR_RESULT;
     }
     
     // Bind the socket to the local address
-    bind(sock, localAddress.sockaddr, localAddress.size);
+    if (bind(sock, localAddress.sockaddr, localAddress.size) != 0) {
+        close(sock);
+        freeaddrinfo(addrinfoPointer);
+        freeifaddrs(ifaddrPointer);
+        return ERROR_RESULT;
+    }
     
     // Connect to the remote address using the socket
     status = connect(sock, remoteAddress.sockaddr, remoteAddress.size);
     if (status) {
+        close(sock);
         freeaddrinfo(addrinfoPointer);
+        freeifaddrs(ifaddrPointer);
         return ERROR_RESULT;
     }
     
     // Create the HTTP request string
     NSString *requestString = [NSString stringWithFormat: PATTERN_REQUEST_BASE, [url path], [url query] ? [@"?" stringByAppendingString:[url query]] : @"", [url host], [url port] ? [@":" stringByAppendingFormat:@"%@", [url port]] : @""];
     
+    if (headers != nil) {
+        for (NSString *headerName in headers) {
+            NSString *headerValue = headers[headerName];
+            if (headerValue.length > 0) {
+                requestString = [requestString stringByAppendingFormat:@"%@: %@\r\n", headerName, headerValue];
+            }
+        }
+    }
+    
     requestString = [requestString stringByAppendingString: REQUEST_CONNECTION_CLOSE];
     
     const char* request = [requestString UTF8String];
 
     char buffer[4096];
+    memset(buffer, 0, sizeof(buffer));
+    size_t responseLength = 0;
     
     // Step 4). Invoke the HTTP request using the instantiated socket
     
@@ -180,6 +206,9 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
         do {
             int bytes = (int)read(sock, buffer+received, total-received);
             if (bytes < 0) {
+                close(sock);
+                freeaddrinfo(addrinfoPointer);
+                freeifaddrs(ifaddrPointer);
                 return ERROR_RESULT;
             } else if(bytes==0) {
                 break;
@@ -187,6 +216,7 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
             
             received += bytes;
         } while (received < total);
+        responseLength = (size_t)received;
     } else { // Setup SSL if the URL is HTTPS
         // SSLCreateContext allocates and returns a new context.
         SSLContextRef context = SSLCreateContext(kCFAllocatorDefault, kSSLClientSide, kSSLStreamType);
@@ -196,6 +226,9 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
         if (status) {
             SSLClose(context);
             CFRelease(context);
+            close(sock);
+            freeaddrinfo(addrinfoPointer);
+            freeifaddrs(ifaddrPointer);
             return ERROR_RESULT;
         }
         
@@ -204,6 +237,9 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
         if (status) {
             SSLClose(context);
             CFRelease(context);
+            close(sock);
+            freeaddrinfo(addrinfoPointer);
+            freeifaddrs(ifaddrPointer);
             return ERROR_RESULT;
         }
         
@@ -212,6 +248,9 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
         if (status) {
             SSLClose(context);
             CFRelease(context);
+            close(sock);
+            freeaddrinfo(addrinfoPointer);
+            freeifaddrs(ifaddrPointer);
             return ERROR_RESULT;
         }
         
@@ -222,6 +261,9 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
         if (status) {
             SSLClose(context);
             CFRelease(context);
+            close(sock);
+            freeaddrinfo(addrinfoPointer);
+            freeifaddrs(ifaddrPointer);
             return ERROR_RESULT;
         }
         
@@ -231,16 +273,24 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
         if (status) {
             SSLClose(context);
             CFRelease(context);
+            close(sock);
+            freeaddrinfo(addrinfoPointer);
+            freeifaddrs(ifaddrPointer);
             return ERROR_RESULT;
         }
         
+        size_t totalRead = 0;
         do {
+            size_t chunk = 0;
             // SSLRead performs a typical application-level read operation.
-            status = SSLRead(context, buffer, sizeof(buffer) - 1, &processed);
-            buffer[processed] = 0;
+            status = SSLRead(context, buffer + totalRead, sizeof(buffer) - 1 - totalRead, &chunk);
+            if (chunk > 0) {
+                totalRead += chunk;
+                buffer[totalRead] = 0;
+            }
             
             // If the buffer was filled, then continue reading
-            if (processed == sizeof(buffer) - 1) {
+            if (chunk > 0 && totalRead == sizeof(buffer) - 1) {
                 status = errSSLWouldBlock;
             }
         } while (status == errSSLWouldBlock);
@@ -248,14 +298,34 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
         if (status && status != errSSLClosedGraceful) {
             SSLClose(context);
             CFRelease(context);
+            close(sock);
+            freeaddrinfo(addrinfoPointer);
+            freeifaddrs(ifaddrPointer);
             return ERROR_RESULT;
         }
+        responseLength = totalRead;
+        SSLClose(context);
+        CFRelease(context);
+    }
+
+    close(sock);
+    freeaddrinfo(addrinfoPointer);
+    freeifaddrs(ifaddrPointer);
+
+    // Only decode the bytes actually received. Using sizeof(buffer) includes
+    // uninitialized stack memory and can make NSASCIIStringEncoding return nil
+    // in Release builds (Debug often has zeroed stacks, so it appears to work).
+    if (responseLength == 0) {
+        return ERROR_RESULT;
+    }
+    NSString *response = [[NSString alloc] initWithBytes:buffer length:responseLength encoding:NSASCIIStringEncoding];
+    if (response == nil) {
+        // Fallback for non-ASCII body bytes while keeping header parsing usable.
+        response = [[NSString alloc] initWithBytes:buffer length:responseLength encoding:NSISOLatin1StringEncoding];
     }
     
-    NSString *response = [[NSString alloc] initWithBytes:buffer length:sizeof(buffer) encoding:NSASCIIStringEncoding];
-    
     // Step 5). Parse the HTTP response and check whether it contains a redirect HTTP code
-    if ([response rangeOfString: HTTP_RESPONSE_START].location == NSNotFound) {
+    if (response == nil || [response rangeOfString: HTTP_RESPONSE_START].location == NSNotFound) {
         return ERROR_RESULT;
     }
     
