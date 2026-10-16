@@ -14,6 +14,11 @@
 + (NSString *)performGetRequest:(NSURL *)url;
 + (NSString *)performGetRequest:(NSURL *)url headers:(NSDictionary<NSString *, NSString *> *)headers;
 
+/// Returns YES when the cellular data interface (`pdp_ip0`) is up and has an IPv4/IPv6 address.
+/// Used for Android-parity early fail before seamless initiation (mobile data must be available
+/// for the later cellular-bound targetUri GET).
++ (BOOL)isCellularInterfaceAvailable;
+
 /// Decodes bytes actually received from a cellular HTTP(S) response.
 ///
 /// - Important: `length` must be the number of valid response bytes, not the capacity of the

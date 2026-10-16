@@ -11,9 +11,42 @@ import XCTest
 @testable import Verification
 
 class SeamlessVerificationMethodTests: XCTestCase {
+
+    private var previousCellularAvailabilityCheck: (() -> Bool)!
+
+    override func setUp() {
+        super.setUp()
+        previousCellularAvailabilityCheck = SeamlessVerificationMethod.isCellularNetworkAvailable
+        // Existing initiation tests mock HTTP only; stub cellular so simulator/CI without pdp_ip0 still run.
+        SeamlessVerificationMethod.isCellularNetworkAvailable = { true }
+    }
+
+    override func tearDown() {
+        SeamlessVerificationMethod.isCellularNetworkAvailable = previousCellularAvailabilityCheck
+        super.tearDown()
+    }
     
     func testCorrectSeamlessInitiationResponseNotifiesListener() throws {
         try createHelperWithSeamlessMethod().testCorrectInitiationResponseNotifiesInitListenerWithProperData()
+    }
+
+    func testPreInitiateFailsWhenCellularNetworkUnavailable() {
+        SeamlessVerificationMethod.isCellularNetworkAvailable = { false }
+
+        let expectation = expectation(description: "onInitiationFailed with cellular unavailable")
+        let helper = createHelperWithSeamlessMethod()
+        helper.onInitiatedFailedCallback = { error in
+            XCTAssertEqual(
+                error.localizedDescription,
+                SeamlessVerificationMethod.cellularNetworkNotAvailableMessage
+            )
+            expectation.fulfill()
+        }
+
+        helper.method?.initiate()
+
+        wait(for: [expectation], timeout: 1.0)
+        XCTAssertEqual(helper.method?.verificationState, .idle)
     }
     
     func testErrorResponseNotifiesInitListenerWithApiError() throws {

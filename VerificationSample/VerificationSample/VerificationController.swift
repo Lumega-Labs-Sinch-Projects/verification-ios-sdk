@@ -39,16 +39,12 @@ class VerificationController: UIViewController {
     
     private weak var verificationDialogController: VerificationDialogController?
     private var verification: Verification?
-    private var selectedEnv: Environment = Environments[0] {
-        didSet {
-            updateEnvButton()
-            Constants.Api.userDefinedDomain = selectedEnv.domain
-        }
-    }
+    private let configStore = SampleConfigStore.shared
     
     private var globalConfig: SinchGlobalConfig {
         return SinchGlobalConfig.Builder.instance()
-            .authorizationMethod(BasicAuthorizationMethod(appKey: selectedEnv.appKey, appSecret: selectedEnv.appSecret))
+            .authorizationMethod(configStore.authorizationMethod())
+            .interceptors([configStore.indiaAppKeyInterceptor()])
             .build()
     }
     
@@ -76,18 +72,37 @@ class VerificationController: UIViewController {
         [phoneNumberTextField, customField, referenceField, acceptedLanguagesField].forEach {
             $0?.delegate = self
         }
-        envButton.showsMenuAsPrimaryAction = true
         envButton.tintColor = .label
+        envButton.menu = nil
+        envButton.showsMenuAsPrimaryAction = false
+        envButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
+        configStore.applyToSDK()
+        updateEnvButton()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(configDidChange),
+            name: .sampleConfigDidChange,
+            object: nil
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func configDidChange() {
         updateEnvButton()
     }
 
     private func updateEnvButton() {
-        envButton.setTitle("\(selectedEnv.name) ▼", for: .normal)
-        envButton.menu = UIMenu(title: "Environment", children: Environments.map { env in
-            UIAction(title: env.name, state: (self.selectedEnv == env) ? .on : .off) { [weak self] _ in
-                self?.selectedEnv = env
-            }
-        })
+        let name = configStore.usedConfig.name
+        envButton.setTitle("\(name) ›", for: .normal)
+    }
+
+    @objc private func openSettings() {
+        let settings = SettingsViewController()
+        let nav = UINavigationController(rootViewController: settings)
+        present(nav, animated: true)
     }
     
     @IBAction func didTapInitializeButton(_ sender: Any) {

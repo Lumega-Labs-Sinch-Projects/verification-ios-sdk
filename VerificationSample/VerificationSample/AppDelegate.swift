@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.addDestination(console)
         log.addDestination(file)
         log.addDestination(eventBusDestination)
+        SampleConfigStore.shared.applyToSDK()
         return true
     }
 
@@ -41,4 +42,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

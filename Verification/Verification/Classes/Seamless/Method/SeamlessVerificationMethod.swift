@@ -19,6 +19,13 @@ import SwiftyBeaver
 public class SeamlessVerificationMethod: VerificationMethod {
   
   static let EXTRA_CHECK_SUCCESSFUL_KEY = "SUCCESSFUL"
+  static let cellularNetworkNotAvailableMessage = "Cellular network not available"
+  
+  /// Overridable cellular check (matches Android `TelephonyManager.isDataEnabled` pre-check).
+  /// Defaults to detecting an up `pdp_ip0` interface — the same interface used by `HTTPRequester`.
+  static var isCellularNetworkAvailable: () -> Bool = {
+    HTTPRequester.isCellularInterfaceAvailable()
+  }
   
   private let seamlessExecutor: SeamlessVerificationExecutor = SeamlessVerificationExecutor()
   
@@ -35,6 +42,17 @@ public class SeamlessVerificationMethod: VerificationMethod {
   
   private var initiationData: SeamlessVerificationInitiationData {
     return SeamlessVerificationInitiationData(basedOnConfiguration: self.verificationMethodConfig)
+  }
+  
+  /// Android-parity early fail: do not POST /verifications when cellular data is unavailable.
+  override func onPreInitiate() -> Bool {
+    guard Self.isCellularNetworkAvailable() else {
+      let error = SDKError.unexpected(message: Self.cellularNetworkNotAvailableMessage)
+      log.error(Self.cellularNetworkNotAvailableMessage)
+      onInitiationFailed(e: error)
+      return false
+    }
+    return true
   }
   
   override func onInitiate() {

@@ -41,6 +41,31 @@ static const NSString *HTTP_RESPONSE_START = @"HTTP/";
  @param url The URL to be requested
  @return A string response from the request to the URL
  */
++ (BOOL)isCellularInterfaceAvailable {
+    struct ifaddrs *ifaddrPointer = NULL;
+    if (getifaddrs(&ifaddrPointer) != 0) {
+        return NO;
+    }
+
+    BOOL available = NO;
+    for (struct ifaddrs *ifa = ifaddrPointer; ifa != NULL; ifa = ifa->ifa_next) {
+        if (!(ifa->ifa_flags & IFF_UP) || ifa->ifa_addr == NULL) {
+            continue;
+        }
+        if (strcmp(ifa->ifa_name, "pdp_ip0") != 0) {
+            continue;
+        }
+        sa_family_t family = ifa->ifa_addr->sa_family;
+        if (family == AF_INET || family == AF_INET6) {
+            available = YES;
+            break;
+        }
+    }
+
+    freeifaddrs(ifaddrPointer);
+    return available;
+}
+
 + (NSString *)performGetRequest:(NSURL *)url {
     return [self performGetRequest:url headers:nil];
 }
